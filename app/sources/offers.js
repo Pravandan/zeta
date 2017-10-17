@@ -22,7 +22,7 @@ export class Offers extends Component<{}> {
 
   render() {
     return (
-      <View>
+      <View style={{backgroundColor:'#21232F',height:window.height}}>
         <Text>Offers</Text>
       </View>
     );

@@ -10,6 +10,7 @@ import {Passbook} from '../sources/passbook';
 import {Profile} from '../sources/profile';
 import {Offers} from '../sources/offers';
 import {SwitchHome} from '../sources/switchHome';
+import {Receipt} from '../sources/receipt';
 
 export const ModalStack = StackNavigator({
   Splash:{
@@ -37,6 +38,9 @@ export const SubModalStack  = StackNavigator({
   Passbook : {
   	screen : Passbook,
   },
+  Receipt : {
+    screen : Receipt,
+  }
 },
 
 	{headerMode:'none'}
@@ -72,8 +76,12 @@ export const Tabs = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: 'white',
+    labelStyle: {
+      fontFamily: 'Montserrat-Regular',
+  },
      style: {
-    backgroundColor: '#633ea5',
+    backgroundColor: '#21232F',
+    fontFamily: 'Montserrat-Regular'
   },
   },
 }
