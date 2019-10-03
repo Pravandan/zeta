@@ -38,10 +38,14 @@ export class Splash extends Component<{}> {
     return (
       <View style={{backgroundColor:'#21232F',height:window.height}}>
         <View style={{alignItems:'center',top:40}}>
-         <Text style={{color:'white',fontSize:60,fontFamily: 'Montserrat-Regular'}}>zeta</Text>
+         <Text style={{color:'white',fontSize:80}}>रसीद</Text>
         </View>
         <View style={{alignItems:'center',paddingTop:35}}>
          <Text style={{color:'white',fontFamily: 'Montserrat-Regular',fontSize:12}}>Bringing Receipts to Cloud</Text>
+        </View>
+
+        <View style={{alignItems: 'center', paddingTop:35, top:window.height-255}}>
+         <Text style={{color:'white',fontFamily: 'Montserrat-Regular',fontSize:12}}>Saving nature with every receipt</Text>
         </View>
 
         <View style={{alignItems:'center',paddingTop:100}}>

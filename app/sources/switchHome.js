@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Animated,
   Text,
   View,
   TouchableOpacity,
@@ -20,6 +21,11 @@ export class SwitchHome extends Component<{}> {
   constructor(props){
     super(props);
 
+    const maxOpacity = 0.12;
+    this.slideValue = new Animated.Value(0);
+    this.slideValue2 = new Animated.Value(0);
+    this.slideValue3 = new Animated.Value(0);
+    this.springValue = new Animated.Value(0.3)
     this.state={
       userMobile : '',
       rewards : 0,
@@ -35,6 +41,7 @@ export class SwitchHome extends Component<{}> {
     this.setUserMobile = this.setUserMobile.bind(this);
     this._updateRewards = this._updateRewards.bind(this);
     this._updateLastTransaction = this._updateLastTransaction.bind(this);
+  	
   }
 
    componentWillMount(){
@@ -108,8 +115,11 @@ export class SwitchHome extends Component<{}> {
   }
 
 
-  componentDiDMount(){
-
+  componentDidMount(){
+  	this.animate(),
+  	setTimeout(()=>this.animate2(), 2000),
+  	setTimeout(()=>this.animate3(), 3000),
+  	this.spring()
   }
 
 
@@ -117,12 +127,78 @@ export class SwitchHome extends Component<{}> {
 
   }
 
+  animate() {
+  		this.slideValue.setValue(0)
+  		Animated.timing(
+	    	this.slideValue,
+	    	{
+	      	toValue: 1,
+	      	duration: 5000,
+	    	}
+	    ).start(() => this.animate())
+}
+
+  animate2() {
+  		this.slideValue2.setValue(0)
+  		Animated.timing(
+	    	this.slideValue2,
+	    	{
+	      	toValue: 1,
+	      	duration: 5000,
+	    	}
+	    ).start(() => this.animate2())
+}
+  animate3() {
+  		this.slideValue3.setValue(0)
+  		Animated.timing(
+	    	this.slideValue3,
+	    	{
+	      	toValue: 1,
+	      	duration: 5000,
+	    	}
+	    ).start(() => this.animate3())
+}
+  spring() {
+  	this.springValue.setValue(0.01)
+  	Animated.spring(
+  		this.springValue,
+  		{
+  			toValue: 1,
+  			speed: 0.04
+  			
+  		}
+  	).start()
+  }
   static navigationOptions = {
     title: 'SwitchHome',
 
   }
 
   render() {
+  	const opacity = this.slideValue.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [1, 0]
+  	});
+  	const scale = this.slideValue.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [0.01, 4]
+  	})
+  	const opacity2 = this.slideValue2.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [1, 0]
+  	});
+  	const scale2 = this.slideValue2.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [0.01, 4]
+  	})
+  	const opacity3 = this.slideValue3.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [1, 0]
+  	});
+  	const scale3 = this.slideValue3.interpolate({
+  		inputRange: [0, 1],
+  		outputRange: [0.01, 4]
+  	})
     return (
       <View style={{backgroundColor:'#21232F',height:window.height,alignItems:'center'}}>
 
@@ -144,21 +220,28 @@ export class SwitchHome extends Component<{}> {
               <Text style={{color:'white',paddingLeft:0,fontFamily: 'Montserrat-Regular'}}>Passbook</Text>
             </TouchableOpacity>
         </View>
-
-        <View style={{top:window.height-360,alignItems:'center'}}>
+        <View 
+        	style= {{ position: 'absolute', marginTop:window.height/2-40, alignItems: 'center'}}>
+        <Animated.View 
+        	style={{position: 'absolute', width: 80, height: 80, backgroundColor: '#3366CC', borderRadius: 50, transform: [{scale: scale}], opacity}}/>
+        <Animated.View 
+        	style={{position: 'absolute', width: 80, height: 80, backgroundColor: '#1f2c89', borderRadius: 50, transform: [{scale: scale2}], opacity: opacity2}}/>
+        <Animated.View 
+        	style={{position: 'absolute', width: 80, height: 80, backgroundColor: '#1f4182', borderRadius: 50, transform: [{scale: scale3}], opacity: opacity3}}/>
+        <Animated.View 
+        	style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', width: 80, height: 80, backgroundColor: '#3366CC', borderRadius: 50, transform: [{scale: this.springValue}]}}>
+        	<Text style= {{fontSize: 25, color: '#bfc6ff'}} onPress={() => this.props.navigation.navigate('Pay')}> रसीद </Text>
+        </Animated.View>
         
-          <Text style={{color:'white',fontSize:16,fontFamily: 'Montserrat-Regular'}}>No Recent Transactions</Text>
-     
         </View>
 
-        <View style={{top:window.height-340}}>
+        <View style={{position: 'absolute', top:window.height-150}}>
         <Text style={{paddingLeft:10,fontSize:16,paddingBottom:5,color:'white',fontFamily: 'Montserrat-Regular'}}>Total Rewards - Rs. {this.state.rewards}</Text>
         <View style={{backgroundColor:'#17e209',padding:6,width:window.width-60,borderRadius:40}}>
-              <Text style={{color:'#333',fontFamily: 'Montserrat-Regular',paddingLeft:10}}>CASHCARD PLUS</Text>
+              <Text style={{color:'#333',fontFamily: 'Montserrat-Regular',paddingLeft:10}}>REWARD CARD PLUS</Text>
         </View>
         </View>
       </View>
     );
   }
 }
-

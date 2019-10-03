@@ -15,12 +15,29 @@ export class Receipt extends Component<{}> {
 
   constructor(props){
     super(props);
+    this.state={
+      'token' : this.props.navigation.state.params.tokenObj.token,
+      'date' : this.props.navigation.state.params.tokenObj.dateAndTime,
+      'amount' : '',
+      'merchantName' : '',
+    }
 
+    this._buildReceipt = this._buildReceipt.bind(this);
+    this._getTokenDetails();
   }
 
 
   _getTokenDetails(){
-    let temp = GetTokenDetails()
+    let temp = GetTokenDetails(this.state.token).then(responseObj => this._buildReceipt(responseObj)).catch();
+  }
+
+
+  _buildReceipt(responseObj){
+    const dateAndTime = String(new Date(responseObj.creationTimeStamp));
+    this.setState({
+      'amount' : responseObj.amount,
+      'merchantName' : responseObj.merchantName,
+    });
   }
 
 static navigationOptions = {
@@ -39,20 +56,20 @@ static navigationOptions = {
 
             <Text style={{color:'white',fontSize:16,paddingTop:0,fontFamily: 'Montserrat-Regular'}}>TRANSACTION SUCCESSFULL</Text>
 
-            <Text style={{color:'#333',paddingTop:5,fontSize:18,fontFamily: 'Montserrat-Regular'}}>Big Bazaar</Text>
+            <Text style={{color:'#333',paddingTop:5,fontSize:18,fontFamily: 'Montserrat-Regular'}}>{this.state.merchantName}</Text>
 
-            <Text style={{color:'#333',paddingTop:5,fontSize:14,fontFamily: 'Montserrat-Regular'}}>10:05 AM , 10 AUGUST, 2017</Text>
+            <Text style={{color:'#333',paddingTop:5,fontSize:14,fontFamily: 'Montserrat-Regular'}}>{this.state.date}</Text>
 
             <Text style={{color:'#333',paddingTop:25,fontSize:18,paddingBottom:20,fontFamily: 'Montserrat-Regular'}}>Paid Using Debit Card</Text>
 
             <View style={{flex:1,backgroundColor:'#E94C3D',paddingTop:10,paddingBottom:50,width:window.width-40,alignItems:'center',borderRadius:4}}>
-                <Text style={{color:'white',paddingTop:0,fontSize:28,fontFamily: 'Montserrat-Regular'}}>Rs. 123</Text>
+                <Text style={{color:'white',paddingTop:0,fontSize:28,fontFamily: 'Montserrat-Regular'}}>Rs. {this.state.amount}</Text>
             </View>
           
         </View>
 
         <View style={{paddingTop:10,alignItems:'center'}}>
-          <Text style={{fontFamily: 'Montserrat-Regular',fontSize:14,color:'white'}}>In Collaboration with Zeta Inc</Text>
+          <Text style={{fontFamily: 'Montserrat-Regular',fontSize:14,color:'white'}}>In Collaboration with Raseed Inc</Text>
         </View>
 
       </View>

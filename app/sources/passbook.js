@@ -86,14 +86,16 @@ export class Passbook extends Component<{}> {
         }
       }
 
-
+      let token = responseObj.transObj[i].token;
+      let tokenObj = {"token" : token,"dateAndTime" : dateAndTime};
      
       this.state.allTrans.push(
-           <TouchableOpacity style={{margin:10,backgroundColor:'#F65224',borderRadius:40}} onPress={() => this.props.navigation.navigate('Receipt')}>
+           <TouchableOpacity style={{margin:10,backgroundColor:'#F65224',borderRadius:20}} onPress={() => this.props.navigation.navigate('Receipt',{tokenObj})}>
             <Text style={{color:'white',fontSize:16,paddingLeft:20,paddingTop:10,paddingBottom:0,fontFamily: 'Montserrat-Regular'}}>{parMerchantName}</Text>
             <Text style={{position:'absolute',color:'white',fontSize:18,paddingLeft:220,paddingTop:10,paddingBottom:10,fontFamily: 'Montserrat-Regular'}}>{typeOfTrans}</Text>
             <Text style={{color:'white',fontSize:12,paddingLeft:20,paddingTop:10,paddingBottom:10,fontFamily: 'Montserrat-Regular'}}>{dateAndTime}</Text>
             <Text style={{position:'absolute',color:'white',fontSize:14,paddingLeft:220,paddingTop:40,paddingBottom:240,fontFamily: 'Montserrat-Regular'}}>Rs. {parAmount}</Text>
+            <Text style={{color:'white',fontSize:12,paddingLeft:20,paddingTop:2,paddingBottom:10,fontFamily: 'Montserrat-Regular'}}>{token}</Text>
           </TouchableOpacity>
         )
       this.setState({

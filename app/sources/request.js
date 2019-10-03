@@ -161,9 +161,9 @@ export class Request extends Component<{}> {
 
             <Text style={{color:'white',fontSize:16,paddingTop:0,fontFamily: 'Montserrat-Regular'}}>TRANSACTION SUCCESSFULL</Text>
 
-            <Text style={{color:'#333',paddingTop:5,fontSize:18,fontWeight:'bold',fontFamily: 'Montserrat-Regular'}}></Text>
+            <Text style={{color:'#333',paddingTop:5,fontSize:16,fontWeight:'bold',fontFamily: 'Montserrat-Regular'}}>Payment Received from {this.state.mobile}</Text>
 
-            <Text style={{color:'#333',paddingTop:5,fontSize:14,fontFamily: 'Montserrat-Regular'}}>10:05 AM , 10 AUGUST, 2017</Text>
+            <Text style={{color:'#333',paddingTop:5,fontSize:16,fontWeight:'bold',fontFamily: 'Montserrat-Regular'}}></Text>
 
             <Text style={{color:'#333',paddingTop:25,fontSize:18,paddingBottom:20,fontFamily: 'Montserrat-Regular'}}>Paid Online</Text>
 
